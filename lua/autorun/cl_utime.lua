@@ -90,7 +90,7 @@ function PANEL:Paint(w, h)
 	surface.SetDrawColor(outerColor)
 	surface.DrawTexturedRect(0, 0, wide, tall) -- Draw gradient overlay
 
-	if self:GetTall() > self.Small + 4 then    -- Draw the white background for another player's info
+	if self:GetTall() > self.Small + 4 then -- Draw the white background for another player's info
 		local innerColor = Color(utime_insidecolor_r:GetInt(), utime_insidecolor_g:GetInt(), utime_insidecolor_b:GetInt(),
 			255)
 		draw.RoundedBox(4, 2, self.Small, wide - 4, tall - self.Small - 2, innerColor)
@@ -178,7 +178,9 @@ function PANEL:Think()
 		locktime = CurTime()
 	end
 
-	if locktime + 2 < CurTime() then
+	-- if locktime + 2 < CurTime() then
+	-- i removed the time here to prevent players from using this menu to get player names
+	if locktime < CurTime() then
 		self.TargetSize = self.Small
 	end
 
@@ -347,17 +349,53 @@ function buildCP(cpanel)
 	cpanel:AddControl("Slider", { Label = "Position X", Command = "utime_pos_x", Type = "Float", Min = "0", Max = "100" })
 	cpanel:AddControl("Slider", { Label = "Position Y", Command = "utime_pos_y", Type = "Float", Min = "0", Max = "100" })
 	cpanel:AddControl("Color",
-		{ Label = "Outside Color", Red = "utime_outsidecolor_r", Green = "utime_outsidecolor_g", Blue =
-		"utime_outsidecolor_b", ShowAlpha = "0", ShowHSV = "1", ShowRGB = "1", Multiplier = "255" })
+		{
+			Label = "Outside Color",
+			Red = "utime_outsidecolor_r",
+			Green = "utime_outsidecolor_g",
+			Blue =
+			"utime_outsidecolor_b",
+			ShowAlpha = "0",
+			ShowHSV = "1",
+			ShowRGB = "1",
+			Multiplier = "255"
+		})
 	cpanel:AddControl("Color",
-		{ Label = "Outside Text Color", Red = "utime_outsidetext_r", Green = "utime_outsidetext_g", Blue =
-		"utime_outsidetext_b", ShowAlpha = "0", ShowHSV = "1", ShowRGB = "1", Multiplier = "255" })
+		{
+			Label = "Outside Text Color",
+			Red = "utime_outsidetext_r",
+			Green = "utime_outsidetext_g",
+			Blue =
+			"utime_outsidetext_b",
+			ShowAlpha = "0",
+			ShowHSV = "1",
+			ShowRGB = "1",
+			Multiplier = "255"
+		})
 	cpanel:AddControl("Color",
-		{ Label = "Inside Color", Red = "utime_insidecolor_r", Green = "utime_insidecolor_g", Blue =
-		"utime_insidecolor_b", ShowAlpha = "0", ShowHSV = "1", ShowRGB = "1", Multiplier = "255" })
+		{
+			Label = "Inside Color",
+			Red = "utime_insidecolor_r",
+			Green = "utime_insidecolor_g",
+			Blue =
+			"utime_insidecolor_b",
+			ShowAlpha = "0",
+			ShowHSV = "1",
+			ShowRGB = "1",
+			Multiplier = "255"
+		})
 	cpanel:AddControl("Color",
-		{ Label = "Inside Text Color", Red = "utime_insidetext_r", Green = "utime_insidetext_g", Blue =
-		"utime_insidetext_b", ShowAlpha = "0", ShowHSV = "1", ShowRGB = "1", Multiplier = "255" })
+		{
+			Label = "Inside Text Color",
+			Red = "utime_insidetext_r",
+			Green = "utime_insidetext_g",
+			Blue =
+			"utime_insidetext_b",
+			ShowAlpha = "0",
+			ShowHSV = "1",
+			ShowRGB = "1",
+			Multiplier = "255"
+		})
 	cpanel:AddControl("Button", { Text = "Reset", Label = "Reset colors and position", Command = "utime_reset" })
 end
 
@@ -379,4 +417,4 @@ function onEntCreated(ent)
 	end
 end
 
-hook.Add("OnEntityCreated", "UTimeLocalPlayerCheck", onEntCreated)   -- Flag server when we created LocalPlayer()
+hook.Add("OnEntityCreated", "UTimeLocalPlayerCheck", onEntCreated) -- Flag server when we created LocalPlayer()
